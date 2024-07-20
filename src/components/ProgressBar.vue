@@ -60,6 +60,8 @@ export default {
     this.$nextTick(() => {
       this.animateBar();
     });
+    const progress = document.querySelector(".progress");
+    progress.style.background = localStorage.getItem("checkTheme");
   },
 };
 </script>

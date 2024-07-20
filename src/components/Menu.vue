@@ -2,32 +2,46 @@
   <nav class="menu">
     <router-link to="/">
       <div class="menu__item" style="opacity: 0">
-        <img src="../assets/icons/Home.svg" alt="" />
+        <img src="../assets/icons/Home.svg" alt="" draggable="false" />
       </div>
     </router-link>
     <router-link to="/checklist">
       <div class="menu__item" style="opacity: 0">
-        <img src="../assets/icons/achivka.svg" alt="" />
+        <img src="../assets/icons/achivka.svg" alt="" draggable="false" />
       </div>
     </router-link>
-    <router-link to="/creater">
+    <router-link to="/after">
       <div class="menu__item" style="opacity: 0">
-        <img src="../assets/icons/info__creater.svg" alt="" />
+        <img src="../assets/icons/info__creater.svg" alt="" draggable="false" />
       </div>
     </router-link>
     <router-link to="/setting">
       <div class="menu__item" style="opacity: 0">
-        <img src="../assets/icons/Settings_8.svg" alt="" />
+        <img src="../assets/icons/Settings_8.svg" alt="" draggable="false" />
       </div>
     </router-link>
   </nav>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      active: 0,
+      active: Number(localStorage.getItem(0 || "activeRout")),
+      theme: "black",
     };
+  },
+  computed: {
+    ...mapGetters(["getAppTheme"]),
+    appTheme() {
+      this.theme = this.getAppTheme;
+      return this.getAppTheme;
+    },
+  },
+  watch: {
+    appTheme(val, newVal) {
+      this.editAppTheme();
+    },
   },
   methods: {
     getMenuItemsByClassName() {
@@ -42,6 +56,8 @@ export default {
             item.classList.remove("active_item");
           });
           items[index].classList.add("active_item");
+          this.active = index;
+          localStorage.setItem("activeRout", index || 0);
           setTimeout(() => {
             let keyAnimate = [
               { transform: "translateY(-10px)" },
@@ -67,9 +83,19 @@ export default {
         }, 150 * index);
       }
     },
+    editAppTheme() {
+      const menu = document.querySelector(".menu");
+      const theme = this.appTheme;
+      if (theme === "black") {
+        menu.style.background = "rgba(0, 0, 0, 0.5098039216)";
+      } else if (theme === "white") {
+        menu.style.background = "rgb(219 219 219 / 51%)";
+      }
+    },
   },
   mounted() {
     this.getMenuItemsByClassName();
+    this.editAppTheme();
   },
 };
 </script>
@@ -107,9 +133,13 @@ export default {
       transform: translateY(0px);
     }
   }
-  &__item img {
-    width: 38px;
-    display: block;
+  &__item {
+    user-select: none;
+    & img {
+      width: 38px;
+      display: block;
+      user-select: none;
+    }
   }
   .show__item {
     animation: showMenuItems 0.6s ease;
