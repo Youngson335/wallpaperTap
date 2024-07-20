@@ -1,14 +1,29 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
-export default createStore({
+const store = createStore({
   state: {
-  },
-  getters: {
+    theme: "black",
   },
   mutations: {
+    setThemeApp(state, val) {
+      state.theme = val;
+    },
   },
   actions: {
+    checkThemeApp(context) {
+      const localTheme = localStorage.getItem("decorTheme");
+      if (localTheme === "0") {
+        context.commit("setThemeApp", "white");
+      } else {
+        context.commit("setThemeApp", "black");
+      }
+    },
   },
-  modules: {
-  }
-})
+  getters: {
+    getAppTheme(state) {
+      return state.theme;
+    },
+  },
+});
+store.dispatch("checkThemeApp");
+export default store;

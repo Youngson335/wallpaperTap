@@ -7,6 +7,7 @@
         @click="incrementCounter($event)"
         src="../assets/tap_icon/2.png"
         alt=""
+        draggable="false"
       />
     </div>
   </div>
@@ -78,6 +79,7 @@ export default {
   height: 80vh;
   flex-direction: column;
   img {
+    cursor: pointer;
     width: 300px;
     display: block;
     transition: transform 0.1s ease;
@@ -107,6 +109,8 @@ export default {
   position: absolute;
   animation: hiddenPlusVibe 2s forwards;
   font-size: 10px;
+  user-select: none;
+  cursor: pointer;
   @keyframes hiddenPlusVibe {
     0% {
       opacity: 1;

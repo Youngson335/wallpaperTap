@@ -25,6 +25,9 @@ export default {
 .counter {
   margin-bottom: 15px;
   animation: showCounter 0.7s ease;
+  & h2 {
+    user-select: none;
+  }
   @keyframes showCounter {
     0% {
       opacity: 0;

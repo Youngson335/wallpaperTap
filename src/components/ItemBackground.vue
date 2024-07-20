@@ -13,7 +13,7 @@ export default {};
   position: relative;
   top: 0;
   z-index: -4;
-  opacity: 0.7;
+  opacity: 0.6;
   &-top {
     position: fixed;
     top: 4%;
