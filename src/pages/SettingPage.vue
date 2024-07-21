@@ -133,11 +133,6 @@ export default {
   position: relative;
   flex-direction: column;
   height: 40vh;
-  // background: linear-gradient(
-  //   to top,
-  //   rgba(26, 25, 25, 0.9294117647),
-  //   rgba(26, 25, 25, 1)
-  // );
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   animation: showSettingPage 0.7s ease;
