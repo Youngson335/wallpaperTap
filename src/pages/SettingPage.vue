@@ -7,8 +7,8 @@
     <div class="setting__title">
       <h2>Настройки</h2>
     </div>
-    <SelectTheme @updateTheme="updateTheme" />
-    <BlackWhiteThemes :upTheme="upTheme" />
+    <SelectTheme :resizeActive="resizeActive" @updateTheme="updateTheme" />
+    <BlackWhiteThemes :activeSettings="activeSettings" :upTheme="upTheme" />
     <div
       class="setting__edit"
       @mousedown="startResize"
@@ -42,6 +42,8 @@ export default {
       isResizing: false,
       upTheme: 0,
       theme: "black",
+      activeSettings: false,
+      resizeActive: true,
     };
   },
   computed: {
@@ -68,6 +70,7 @@ export default {
       this.upTheme = val;
     },
     startResize(event) {
+      this.activeSettings = false;
       if (event.type === "mousedown") {
         this.startY = event.clientY;
       } else if (event.type === "touchstart") {
@@ -86,6 +89,7 @@ export default {
       document.addEventListener("mouseleave", this.stopResize);
     },
     resize(event) {
+      this.resizeActive = false;
       if (!this.isResizing) return;
       let currentY;
       if (event.type === "mousemove") {
@@ -114,8 +118,12 @@ export default {
       const currentHeight = parseFloat(this.settingHeight);
       if (currentHeight >= 50) {
         this.settingHeight = "75vh";
+        this.activeSettings = true;
+        this.resizeActive = true;
       } else {
         this.settingHeight = "40vh";
+        this.activeSettings = false;
+        this.resizeActive = true;
         this.editAppTheme();
       }
     },

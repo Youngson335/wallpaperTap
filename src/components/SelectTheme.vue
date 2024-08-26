@@ -42,7 +42,25 @@ export default {
       activeReset: 0,
     };
   },
+  props: {
+    resizeActive: {
+      type: Boolean,
+    },
+  },
+  watch: {
+    resizeActive() {
+      this.makeActiveSettings();
+    },
+  },
   methods: {
+    makeActiveSettings() {
+      const theme = document.querySelector(".theme");
+      if (this.resizeActive === true) {
+        theme.style.opacity = "1";
+      } else {
+        theme.style.opacity = ".2";
+      }
+    },
     selectTheme(id) {
       const themeStyle = document.querySelector(`.theme__variant-${id}`);
       const body = document.getElementsByTagName("body")[0];
@@ -98,6 +116,7 @@ export default {
 .theme {
   width: 100%;
   margin-bottom: 20px;
+  transition: all 0.3s;
   &__title {
     display: flex;
     justify-content: start;

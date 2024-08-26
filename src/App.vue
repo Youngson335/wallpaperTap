@@ -51,6 +51,7 @@ export default {
 body {
   overflow: hidden;
   min-height: 100vh;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 * {
   padding: 0;

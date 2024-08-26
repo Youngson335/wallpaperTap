@@ -3,12 +3,9 @@
     <Counter :clickCount="clickCount" />
     <ProgressBar :clickCount="clickCount" />
     <div class="tap__image">
-      <img
-        @click="incrementCounter($event)"
-        src="../assets/tap_icon/2.png"
-        alt=""
-        draggable="false"
-      />
+      <div class="image__wallp" @click="incrementCounter($event)">
+        <img src="../assets/walp/wallpaper/4.jpg" alt="" />
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +26,8 @@ export default {
   },
   methods: {
     incrementCounter(event) {
-      const img = document.getElementsByTagName("img")[0];
+      // const img = document.getElementsByTagName("img")[0];
+      const img = document.querySelector(".image__wallp");
       const rect = img.getBoundingClientRect();
       const offsetX = event.clientX - rect.left - rect.width / 2;
       const offsetY = event.clientY - rect.top - rect.height / 2;
@@ -54,7 +52,7 @@ export default {
       let plusVibe = document.createElement("div");
       const tapImage = document.querySelector(".tap__image");
       plusVibe.classList.add("plus__vibe");
-      plusVibe.textContent = "+вайб";
+      plusVibe.textContent = "+1";
       plusVibe.style.left = `${event.pageX}px`;
       plusVibe.style.top = `${event.pageY}px`;
       console.log(event.clientX - rect.left);
@@ -108,7 +106,7 @@ export default {
 .plus__vibe {
   position: absolute;
   animation: hiddenPlusVibe 2s forwards;
-  font-size: 10px;
+  font-size: 20px;
   user-select: none;
   cursor: pointer;
   @keyframes hiddenPlusVibe {
@@ -120,6 +118,29 @@ export default {
       opacity: 0;
       transform: translateY(-50px);
     }
+  }
+}
+.image__wallp {
+  height: 220px;
+  width: 220px;
+  background: #f8f7f7;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 20px 5px rgb(5 5 5 / 67%);
+  cursor: pointer;
+  display: block;
+  transition: transform 0.1s ease;
+  --tiltX: 0deg;
+  --tiltY: 0deg;
+  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
+  border: 6px solid #f8f3f3;
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: 230px;
+    margin: 0 auto;
+    position: relative;
+    bottom: 86px;
   }
 }
 </style>
