@@ -1,8 +1,10 @@
 import { createStore } from "vuex";
+import wallpaperModule from "./wallpaperStore";
 
 const store = createStore({
   state: {
     theme: "black",
+    wallpapers: wallpaperModule,
   },
   mutations: {
     setThemeApp(state, val) {
@@ -22,6 +24,9 @@ const store = createStore({
   getters: {
     getAppTheme(state) {
       return state.theme;
+    },
+    getWallpapers(state) {
+      return state.wallpapers;
     },
   },
 });

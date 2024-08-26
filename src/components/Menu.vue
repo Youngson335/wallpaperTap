@@ -5,7 +5,7 @@
         <img src="../assets/icons/Home.svg" alt="" draggable="false" />
       </div>
     </router-link>
-    <router-link to="/checklist">
+    <router-link to="/wallpaper/select">
       <div class="menu__item" style="opacity: 0">
         <img src="../assets/icons/achivka.svg" alt="" draggable="false" />
       </div>

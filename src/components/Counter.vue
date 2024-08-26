@@ -1,6 +1,6 @@
 <template>
   <div class="counter">
-    <h2>вайб + {{ counter }}</h2>
+    <h2>счет + {{ counter }}</h2>
   </div>
 </template>
 <script>

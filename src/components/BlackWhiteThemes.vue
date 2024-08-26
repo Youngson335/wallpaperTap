@@ -4,10 +4,18 @@
       <h3>Изменить тему игры</h3>
     </div>
     <div class="decor__btns">
-      <button class="btn__white decor__btn" @click="selectWhiteTheme(0)">
+      <button
+        class="btn__white decor__btn"
+        @click="selectWhiteTheme(0)"
+        :disabled="checkActiveBtns"
+      >
         <img src="../assets/icons/white-theme__icon.svg" alt="" />
       </button>
-      <button class="btn__black decor__btn" @click="selectBlackTheme(1)">
+      <button
+        class="btn__black decor__btn"
+        @click="selectBlackTheme(1)"
+        :disabled="checkActiveBtns"
+      >
         <img src="../assets/icons/black-theme__icon.svg" alt="" />
       </button>
       <div :style="{ right: checkStateTheme }" class="active__decor"></div>
@@ -27,13 +35,22 @@ export default {
     upTheme: {
       type: Number,
     },
+    activeSettings: {
+      type: Boolean,
+    },
   },
   watch: {
     upTheme(val, newVal) {
       this.editBackground();
     },
+    activeSettings() {
+      this.makeButtonActive();
+    },
   },
   computed: {
+    checkActiveBtns() {
+      return !this.activeSettings;
+    },
     checkStateTheme() {
       let state = Number(localStorage.getItem("decorTheme"));
       if (state === 1) {
@@ -44,11 +61,22 @@ export default {
     },
     checkEditTheme() {
       this.editBackground();
-      return localStorage.getItem("checkTheme") || defaultTheme;
+      return (
+        localStorage.getItem("checkTheme") ||
+        "rgba(0, 0, 0, 10) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box"
+      );
     },
   },
   methods: {
     ...mapMutations(["setThemeApp"]),
+    makeButtonActive() {
+      const decor = document.querySelector(".decor");
+      if (this.activeSettings === true) {
+        decor.style.opacity = "1";
+      } else {
+        decor.style.opacity = ".2";
+      }
+    },
     selectBlackTheme(num) {
       localStorage.setItem("decorTheme", num);
       const activeDecor = document.querySelector(".active__decor");
@@ -89,6 +117,8 @@ export default {
 <style lang="scss">
 .decor {
   width: 100%;
+  opacity: 0.2;
+  transition: all 0.3s;
   &__title {
     & h3 {
       font-family: "Montserrat", sans-serif;
