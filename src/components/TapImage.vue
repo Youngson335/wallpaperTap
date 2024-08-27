@@ -1,10 +1,10 @@
 <template>
   <div class="tap">
     <Counter :clickCount="clickCount" />
-    <ProgressBar :clickCount="clickCount" />
+    <ProgressBar :clickCount="clickCount" @resetClickCount="resetClickCount" />
     <div class="tap__image">
       <div class="image__wallp" @click="incrementCounter($event)">
-        <img src="../assets/walp/wallpaper/4.jpg" alt="" />
+        <img :src="checkActiveImageFromLocalStorage" alt="" />
       </div>
     </div>
   </div>
@@ -24,9 +24,17 @@ export default {
       maxClicks: 200,
     };
   },
+  computed: {
+    checkActiveImageFromLocalStorage() {
+      return localStorage.getItem("activeWallpaper");
+    },
+  },
   methods: {
+    resetClickCount() {
+      this.clickCount = 0;
+      localStorage.setItem("counter", 0);
+    },
     incrementCounter(event) {
-      // const img = document.getElementsByTagName("img")[0];
       const img = document.querySelector(".image__wallp");
       const rect = img.getBoundingClientRect();
       const offsetX = event.clientX - rect.left - rect.width / 2;

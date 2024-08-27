@@ -2,13 +2,18 @@
   <div class="progress-bar">
     <div class="progress" :style="{ width: progressWidth + '%' }"></div>
   </div>
+  <ModalSuccess class="done__modal" />
 </template>
 
 <script>
+import ModalSuccess from "../components/ModalSuccess.vue";
 export default {
+  components: {
+    ModalSuccess,
+  },
   data() {
     return {
-      maxClicks: 200,
+      maxClicks: Number(localStorage.getItem("activeWallpaperCounter")) || 400,
       initialWidth: 0,
     };
   },
@@ -32,14 +37,32 @@ export default {
     },
   },
   methods: {
+    hiddenModal() {
+      const modal = document.querySelector(".done__modal");
+      modal.style.display = "none";
+      modal.classList.remove("hidden__modal");
+    },
+    checkCounter() {
+      const modal = document.querySelector(".done__modal");
+      console.log(modal);
+      if (this.counter >= this.maxClicks) {
+        modal.style.display = "flex";
+        setTimeout(() => {
+          modal.classList.add("hidden__modal");
+        }, 4000);
+        setTimeout(() => {
+          this.hiddenModal();
+        }, 4500);
+        this.$emit("resetClickCount");
+      }
+    },
     updateProgress() {
+      this.checkCounter();
       this.initialWidth = this.progressWidth;
     },
     animateBar() {
       const progress = document.querySelector(".progress");
       let count = this.progressWidth;
-
-      console.log(count);
 
       const keyframes = [
         { width: "0%", opacity: 0 },
@@ -66,7 +89,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style style="scss" scoped>
 .progress-bar {
   width: 60%;
   background-color: #f3f3f3;
@@ -89,5 +112,21 @@ button {
   padding: 10px 20px;
   font-size: 18px;
   cursor: pointer;
+}
+.hidden__modal {
+  animation: 0.5s hiddenModal ease;
+}
+@keyframes hiddenModal {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  60% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
 }
 </style>
