@@ -42,6 +42,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
+  // linear-gradient(rgb(205, 137, 157), rgb(5, 44, 72))
+  // linear-gradient(rgb(184, 187, 154), rgb(110, 125, 107))
+  // linear-gradient(rgb(225, 118, 17), rgb(73, 181, 199))
+  // linear-gradient(rgb(3, 106, 86), rgb(230, 62, 39))
+  // linear-gradient(rgb(3, 167, 121), rgb(9, 63, 94))
 }
 .container {
   max-width: 400px;
