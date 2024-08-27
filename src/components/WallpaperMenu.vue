@@ -84,6 +84,7 @@ a {
   padding: 0 14px;
   font-family: "Montserrat", sans-serif;
   text-transform: lowercase;
+  margin-bottom: 5px;
 }
 
 .activeLink {
