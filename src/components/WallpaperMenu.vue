@@ -65,7 +65,7 @@ ul {
 }
 
 li {
-  background: #0000009c;
+  background: #53583b;
   padding: 5px;
   border-radius: 7px;
   transition: background-color 0.3s ease, color 0.3s ease;

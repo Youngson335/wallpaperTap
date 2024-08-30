@@ -68,7 +68,7 @@ export default {
 <style lang="scss">
 .select {
   overflow: scroll;
-  max-height: 400px;
+  max-height: 55vh;
   padding: 0 14px;
   padding-top: 10px;
 
@@ -77,12 +77,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    background: #0000009e;
+    background: #53583b;
     padding: 7px;
     border-radius: 10px;
     animation: showWallpaperBlocks 0.6s ease;
     transition: all 0.2s;
-    filter: blur(0.8px);
+
     opacity: 0.8;
 
     @keyframes showWallpaperBlocks {
@@ -105,14 +105,13 @@ export default {
 
     &--p {
       font-size: 15px;
-      font-family: "Montserrat", sans-serif;
     }
   }
 }
 
 .selected__wallpaper {
   transition: all 0.2s;
-  background: rgb(255 255 255 / 94%);
+  background: rgb(255 255 255);
   color: black;
   scale: 1.05;
   filter: blur(0px);

@@ -114,7 +114,7 @@ export default {
 .plus__vibe {
   position: absolute;
   animation: hiddenPlusVibe 2s forwards;
-  font-size: 20px;
+  font-size: 40px;
   user-select: none;
   cursor: pointer;
   @keyframes hiddenPlusVibe {
@@ -141,7 +141,7 @@ export default {
   --tiltX: 0deg;
   --tiltY: 0deg;
   transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
-  border: 6px solid #f8f3f3;
+  border: 6px solid #98a364;
   img {
     object-fit: cover;
     object-position: center;

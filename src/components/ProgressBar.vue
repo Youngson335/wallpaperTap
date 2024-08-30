@@ -83,8 +83,6 @@ export default {
     this.$nextTick(() => {
       this.animateBar();
     });
-    const progress = document.querySelector(".progress");
-    progress.style.background = localStorage.getItem("checkTheme");
   },
 };
 </script>
@@ -93,7 +91,7 @@ export default {
 .progress-bar {
   width: 60%;
   background-color: #f3f3f3;
-  border: 1px solid #ccc;
+  padding: 3px;
   border-radius: 10px;
   overflow: hidden;
   height: 10px;
@@ -103,7 +101,7 @@ export default {
 
 .progress {
   height: 100%;
-  background: linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105));
+  background: #98a364;
   transition: width 0.3s;
   border-radius: 10px;
 }

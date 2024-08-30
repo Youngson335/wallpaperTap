@@ -31,11 +31,12 @@ export default {};
   width: 100%;
   overflow: hidden;
   &-img {
-    width: 140px;
-    animation: scrollText 7s linear infinite;
+    width: 400px;
+    animation: scrollText 25s linear infinite;
     transition: opacity 0.4s;
     --startScroll: 0;
     --endScroll: -100%;
+    margin-right: 15px;
   }
   @keyframes scrollText {
     0% {
@@ -46,7 +47,7 @@ export default {};
       opacity: 1;
     }
     100% {
-      opacity: 0.4;
+      opacity: 0.6;
       transform: translateX(var(--endScroll));
     }
   }

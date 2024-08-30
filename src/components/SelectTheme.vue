@@ -123,11 +123,10 @@ export default {
     align-items: center;
     margin-bottom: 5px;
     & h3 {
-      font-family: "Montserrat", sans-serif;
       font-weight: 400;
       text-align: start;
-      padding: 0 20px;
-      font-size: 15px;
+      padding: 10px 20px;
+      font-size: 27px;
       text-transform: lowercase;
     }
   }
@@ -142,7 +141,6 @@ export default {
 .select__variant {
   width: 30px;
   height: 30px;
-  border: 1px solid white;
   border-radius: 50%;
   margin-right: 15px;
 }
@@ -165,19 +163,24 @@ export default {
 }
 .theme__variant {
   &-1 {
-    background: linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105));
+    background-color: #98a364;
+    border: 2px solid #c1d07b;
   }
   &-2 {
-    background: linear-gradient(rgb(207, 28, 20), rgb(149, 23, 199));
+    background-color: #64a394;
+    border: 2px solid #7acfbb;
   }
   &-3 {
-    background: linear-gradient(rgb(29, 171, 210), rgb(245, 139, 182));
+    background-color: #6964a3;
+    border: 2px solid #9088e3;
   }
   &-4 {
-    background: linear-gradient(rgb(138, 137, 123), rgb(189, 182, 250));
+    background-color: #a064a3;
+    border: 2px solid #d281d6;
   }
   &-5 {
-    background: linear-gradient(rgb(105, 95, 38), rgb(97, 189, 186));
+    background-color: #a36464;
+    border: 2px solid #d58787;
   }
 }
 .reset__theme {
