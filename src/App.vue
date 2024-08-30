@@ -19,10 +19,10 @@ export default {
     ItemBackground,
   },
   mounted() {
-    const body = document.getElementsByTagName("body")[0];
-    const defaultTheme =
-      "rgba(0, 0, 0, 0) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box";
-    body.style.background = localStorage.getItem("checkTheme") || defaultTheme;
+    // const body = document.getElementsByTagName("body")[0];
+    // const defaultTheme =
+    //   "rgba(0, 0, 0, 0) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box";
+    // body.style.background = localStorage.getItem("checkTheme") || defaultTheme;
   },
 };
 </script>
@@ -35,18 +35,34 @@ export default {
   font-family: Donpoligrafbum;
   src: url(./assets/fonts/Donpoligrafbum.otf);
 }
+@font-face {
+  font-family: Rumpelstiltskin;
+  src: url(./assets/fonts/Rumpelstiltskin.ttf);
+}
+@font-face {
+  font-family: Pequene;
+  src: url(./assets/fonts/Pequene.ttf);
+}
+h2 {
+  font-size: 60px;
+}
+a,
+p {
+  font-family: Pequene;
+}
 #app {
-  // font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-family: Donpoligrafbum;
+  font-family: Rumpelstiltskin;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
-  // linear-gradient(rgb(205, 137, 157), rgb(5, 44, 72))
-  // linear-gradient(rgb(184, 187, 154), rgb(110, 125, 107))
-  // linear-gradient(rgb(225, 118, 17), rgb(73, 181, 199))
-  // linear-gradient(rgb(3, 106, 86), rgb(230, 62, 39))
-  // linear-gradient(rgb(3, 167, 121), rgb(9, 63, 94))
+  background-image: url(./assets/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  -o-object-fit: cover;
+  object-fit: cover;
+  background-size: cover;
+  height: 100vh;
 }
 .container {
   max-width: 400px;

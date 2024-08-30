@@ -1,6 +1,9 @@
 <template>
   <div class="wallpaper__page">
-    <h2>Обои</h2>
+    <div class="wallpaper__title">
+      <h2>Обои</h2>
+    </div>
+
     <WallpaperMenu />
     <router-view />
   </div>
@@ -14,8 +17,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-h2 {
-  margin-top: 90px;
-  margin-bottom: 10px;
+.wallpaper {
+  &__title {
+    padding-top: 40px;
+  }
+  &__page {
+  }
 }
 </style>

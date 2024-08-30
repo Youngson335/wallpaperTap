@@ -164,10 +164,10 @@ export default {
     text-align: start;
     animation: showSettingTitle 0.4s ease;
     width: 100%;
-    margin-top: 70px;
+    margin-top: 120px;
     & h2 {
-      padding: 20px;
-      font-size: 20px;
+      font-size: 45px;
+      padding: 0px 20px;
     }
     @keyframes showSettingTitle {
       0% {

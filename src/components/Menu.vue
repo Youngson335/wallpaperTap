@@ -83,19 +83,11 @@ export default {
         }, 150 * index);
       }
     },
-    editAppTheme() {
-      const menu = document.querySelector(".menu");
-      const theme = this.appTheme;
-      if (theme === "black") {
-        menu.style.background = "rgba(0, 0, 0, 0.5098039216)";
-      } else if (theme === "white") {
-        menu.style.background = "rgb(219 219 219 / 51%)";
-      }
-    },
+    editAppTheme() {},
   },
   mounted() {
     this.getMenuItemsByClassName();
-    this.editAppTheme();
+    // this.editAppTheme();
   },
 };
 </script>
@@ -109,7 +101,7 @@ export default {
   right: 0;
   left: 0;
   padding: 0 30px;
-  background: rgba(0, 0, 0, 0.5098039216);
+  background: #98a364;
   height: 10%;
   max-height: 70px;
   border-radius: 18px;

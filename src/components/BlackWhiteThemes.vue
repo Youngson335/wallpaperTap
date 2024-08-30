@@ -59,13 +59,6 @@ export default {
         return "40";
       }
     },
-    checkEditTheme() {
-      this.editBackground();
-      return (
-        localStorage.getItem("checkTheme") ||
-        "rgba(0, 0, 0, 10) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box"
-      );
-    },
   },
   methods: {
     ...mapMutations(["setThemeApp"]),
@@ -100,13 +93,6 @@ export default {
         return false;
       }
     },
-    editBackground() {
-      const checker = document.querySelector(".active__decor");
-      const defaultTheme =
-        "rgba(0, 0, 0, 0) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box";
-      checker.style.background =
-        localStorage.getItem("checkTheme") || defaultTheme;
-    },
   },
   mounted() {
     this.checkEditTheme;
@@ -121,11 +107,10 @@ export default {
   transition: all 0.3s;
   &__title {
     & h3 {
-      font-family: "Montserrat", sans-serif;
       font-weight: 400;
       text-align: start;
       padding: 0 20px;
-      font-size: 15px;
+      font-size: 27px;
       text-transform: lowercase;
       margin-bottom: 5px;
     }
@@ -136,7 +121,7 @@ export default {
     align-items: center;
     margin-left: 20px;
     max-width: 90px;
-    border: 1px solid;
+    border: 2px solid #c1d07b;
     border-radius: 20px;
     position: relative;
   }
@@ -159,6 +144,7 @@ export default {
     height: 34px;
     border-radius: 20px;
     transition: all 1s;
+    background-color: #98a364;
   }
   &__black {
     animation: activeBlackTheme 0.3s cubic-bezier(0.06, 0.31, 0.45, 1.15);
