@@ -2,6 +2,7 @@
   <ul class="menu__list">
     <li
       v-for="(item, index) in menuItems"
+      ref="items"
       :key="index"
       :class="{ activeLink: activeLink === item.id, [item.class]: true }"
     >
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -39,10 +41,14 @@ export default {
       ],
     };
   },
-  created() {
-    this.activeLink = this.getActiveLink();
+  computed: {
+    ...mapGetters(["getBackgroundColor"]),
+    checkColor() {
+      return this.getBackgroundColor;
+    },
   },
   methods: {
+    ...mapGetters(["getBackgroundColor"]),
     getActiveLink() {
       const currentPath = this.$route.path;
       const activeItem = this.menuItems.find((item) =>
@@ -50,11 +56,29 @@ export default {
       );
       return activeItem ? activeItem.id : 1;
     },
+    checkActiveColorTheme() {
+      const item1 = document.querySelector(".link__center");
+      const item2 = document.querySelector(".link__right");
+      const item3 = document.querySelector(".link__left");
+
+      item1.style.background = this.getBackgroundColor;
+      item2.style.background = this.getBackgroundColor;
+      item3.style.background = this.getBackgroundColor;
+    },
   },
   watch: {
     $route(to, from) {
       this.activeLink = this.getActiveLink();
     },
+    getBackgroundColor() {
+      this.checkActiveColorTheme();
+    },
+  },
+  created() {
+    this.activeLink = this.getActiveLink();
+  },
+  mounted() {
+    this.checkActiveColorTheme();
   },
 };
 </script>
@@ -88,7 +112,7 @@ a {
 }
 
 .activeLink {
-  background-color: white;
+  background-color: white !important;
   color: black;
   animation: fadeIn 0.3s ease;
   transition: all 0.3s;

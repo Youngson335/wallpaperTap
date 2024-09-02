@@ -3,7 +3,11 @@
     <Counter :clickCount="clickCount" />
     <ProgressBar :clickCount="clickCount" @resetClickCount="resetClickCount" />
     <div class="tap__image">
-      <div class="image__wallp" @click="incrementCounter($event)">
+      <div
+        ref="imageBorder"
+        class="image__wallp"
+        @click="incrementCounter($event)"
+      >
         <img :src="checkActiveImageFromLocalStorage" alt="" />
       </div>
     </div>
@@ -12,6 +16,7 @@
 <script>
 import ProgressBar from "./ProgressBar.vue";
 import Counter from "./Counter.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -24,12 +29,21 @@ export default {
       maxClicks: 200,
     };
   },
+  watch: {
+    getBackgroundColor() {
+      this.addBorderStyle();
+    },
+  },
   computed: {
+    ...mapGetters(["getBackgroundColor"]),
     checkActiveImageFromLocalStorage() {
       return localStorage.getItem("activeWallpaper");
     },
   },
   methods: {
+    addBorderStyle() {
+      this.$refs.imageBorder.style.border = `6px solid ${this.getBackgroundColor}`;
+    },
     resetClickCount() {
       this.clickCount = 0;
       localStorage.setItem("counter", 0);
@@ -72,6 +86,7 @@ export default {
     },
   },
   mounted() {
+    this.addBorderStyle();
     this.clickCount = localStorage.getItem("counter");
   },
 };
@@ -141,7 +156,7 @@ export default {
   --tiltX: 0deg;
   --tiltY: 0deg;
   transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
-  border: 6px solid #98a364;
+  border: 6px;
   img {
     object-fit: cover;
     object-position: center;

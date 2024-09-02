@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="reset__theme" @click="resetTheme(1)">
+      <div ref="resetTheme" class="reset__theme" @click="resetTheme(1)">
         <img
           :class="{ active__reset: activeReset === 1 }"
           src="../assets/icons/reset__icon.svg"
@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -53,6 +54,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["updateColorTheme"]),
     makeActiveSettings() {
       const theme = document.querySelector(".theme");
       if (this.resizeActive === true) {
@@ -62,31 +64,54 @@ export default {
       }
     },
     selectTheme(id) {
-      const themeStyle = document.querySelector(`.theme__variant-${id}`);
-      const body = document.getElementsByTagName("body")[0];
-      const backgroundValue = window
-        .getComputedStyle(themeStyle)
-        .getPropertyValue("background");
-      localStorage.setItem("checkTheme", backgroundValue);
-
-      body.style.background = localStorage.getItem("checkTheme");
+      // const themeStyle = document.querySelector(`.theme__variant-${id}`);
       localStorage.setItem("themeIndex", id);
+      const theme = {
+        background: "background-color: #98a364",
+        border: "border: 2px solid #c1d07b",
+      };
+      switch (id) {
+        case 1:
+          localStorage.setItem("colorTheme", "#98a364");
+          localStorage.setItem("colorBorder", "2px solid #c1d07b");
+          theme.background = "#98a364";
+          theme.border = "2px solid #c1d07b";
+          break;
+        case 2:
+          localStorage.setItem("colorTheme", "#64a394");
+          localStorage.setItem("colorBorder", "2px solid #7acfbb");
+          theme.background = "#64a394";
+          theme.border = "2px solid #7acfbb";
+          break;
+        case 3:
+          localStorage.setItem("colorTheme", "#6964a3");
+          localStorage.setItem("colorBorder", "2px solid #9088e3");
+          theme.background = "#6964a3";
+          theme.border = "2px solid #9088e3";
+          break;
+        case 4:
+          localStorage.setItem("colorTheme", "#a064a3");
+          localStorage.setItem("colorBorder", "2px solid #d281d6");
+          theme.background = "#a064a3";
+          theme.border = "2px solid #d281d6";
+          break;
+        case 5:
+          localStorage.setItem("colorTheme", "#a36464");
+          localStorage.setItem("colorBorder", "2px solid #d58787");
+          theme.background = "#a36464";
+          theme.border = "2px solid #d58787";
+          break;
+      }
+      this.updateColorTheme(JSON.stringify(theme));
+
       this.activeTheme = id;
-      this.$emit("updateTheme", this.activeTheme);
     },
     resetTheme(id) {
-      const body = document.getElementsByTagName("body")[0];
-      this.activeTheme = 1;
-      this.activeReset = 1;
-      const defaultTheme =
-        "rgba(0, 0, 0, 0) linear-gradient(rgb(136, 85, 88), rgb(53, 118, 105)) repeat scroll 0% 0% / auto padding-box border-box";
-      localStorage.setItem("themeIndex", 1);
-      localStorage.setItem("checkTheme", defaultTheme);
-      body.style.background = localStorage.getItem("checkTheme");
+      this.$refs.resetTheme.classList.add("active__reset");
       setTimeout(() => {
-        this.activeReset = 0;
+        this.$refs.resetTheme.classList.remove("active__reset");
       }, 2000);
-      this.$emit("updateTheme", this.activeTheme);
+      this.selectTheme(id);
     },
     addAnimation() {
       const elem = document.querySelectorAll(".select__variant");
@@ -106,8 +131,9 @@ export default {
     },
   },
   mounted() {
-    const body = document.getElementsByTagName("body")[0];
-    body.style.background = localStorage.getItem("checkTheme");
+    if (localStorage.getItem("colorTheme") === null) {
+      selectTheme(1);
+    }
     this.addAnimation();
   },
 };
@@ -143,6 +169,11 @@ export default {
   height: 30px;
   border-radius: 50%;
   margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  &:active {
+    transition: all 0.5s ease;
+  }
 }
 .info__theme {
   display: flex;
@@ -184,8 +215,12 @@ export default {
   }
 }
 .reset__theme {
+  cursor: pointer;
   & img {
     display: block;
+  }
+  &:active {
+    scale: 1.1;
   }
 }
 .active__reset {

@@ -4,9 +4,21 @@ import wallpaperModule from "./wallpaperStore";
 const store = createStore({
   state: {
     theme: "black",
+    colorTheme:
+      localStorage.getItem("colorTheme") || "background-color: #98a364",
+    colorBorder:
+      localStorage.getItem("colorBorder") || "border: 2px solid #c1d07b",
   },
   mutations: {
     setThemeApp(state, val) {
+      state.theme = val;
+    },
+    updateColorTheme(state, val) {
+      const data = JSON.parse(val);
+      state.colorBorder = data.border;
+      state.colorTheme = data.background;
+    },
+    updateBlackWhiteTheme(state, val) {
       state.theme = val;
     },
   },
@@ -23,6 +35,12 @@ const store = createStore({
   getters: {
     getAppTheme(state) {
       return state.theme;
+    },
+    getBorderColor(state) {
+      return state.colorBorder;
+    },
+    getBackgroundColor(state) {
+      return state.colorTheme;
     },
   },
   modules: {
