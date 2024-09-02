@@ -3,7 +3,7 @@
     <div class="decor__title">
       <h3>Изменить тему игры</h3>
     </div>
-    <div class="decor__btns">
+    <div class="decor__btns" ref="activeBorder">
       <button
         class="btn__white decor__btn"
         @click="selectWhiteTheme(0)"
@@ -18,12 +18,17 @@
       >
         <img src="../assets/icons/black-theme__icon.svg" alt="" />
       </button>
-      <div :style="{ right: checkStateTheme }" class="active__decor"></div>
+      <div
+        ref="activeBtn"
+        :style="{ right: checkStateTheme }"
+        class="active__decor"
+      ></div>
     </div>
   </div>
 </template>
 <script>
 import { mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -40,19 +45,25 @@ export default {
     },
   },
   watch: {
-    upTheme(val, newVal) {
-      this.editBackground();
-    },
+    upTheme(val, newVal) {},
     activeSettings() {
       this.makeButtonActive();
     },
+    checkBackgroundStyle() {
+      this.addStyleBtn();
+    },
   },
   computed: {
+    ...mapGetters(["getBackgroundColor", "getBorderColor"]),
+    checkBackgroundStyle() {
+      return this.getBackgroundColor;
+    },
     checkActiveBtns() {
       return !this.activeSettings;
     },
     checkStateTheme() {
       let state = Number(localStorage.getItem("decorTheme"));
+      console.log(state);
       if (state === 1) {
         return "0";
       } else if (state === 0) {
@@ -62,6 +73,10 @@ export default {
   },
   methods: {
     ...mapMutations(["setThemeApp"]),
+    addStyleBtn() {
+      this.$refs.activeBtn.style.background = this.getBackgroundColor;
+      this.$refs.activeBorder.style.border = this.getBorderColor;
+    },
     makeButtonActive() {
       const decor = document.querySelector(".decor");
       if (this.activeSettings === true) {
@@ -95,8 +110,12 @@ export default {
     },
   },
   mounted() {
+    if (localStorage.getItem("decorTheme") === null) {
+      localStorage.setItem("decorTheme", 1);
+    }
+    this.addStyleBtn();
     this.checkEditTheme;
-    this.activeDecor = Number(localStorage.getItem("decorTheme"));
+    this.checkStateTheme;
   },
 };
 </script>
@@ -143,8 +162,7 @@ export default {
     width: 50px;
     height: 34px;
     border-radius: 20px;
-    transition: all 1s;
-    background-color: #98a364;
+    transition: all 0.5s;
   }
   &__black {
     animation: activeBlackTheme 0.3s cubic-bezier(0.06, 0.31, 0.45, 1.15);

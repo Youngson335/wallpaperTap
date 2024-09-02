@@ -28,6 +28,7 @@
 import SelectTheme from "../components/SelectTheme.vue";
 import BlackWhiteThemes from "../components/BlackWhiteThemes.vue";
 import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 export default {
   components: {
     SelectTheme,
@@ -54,18 +55,12 @@ export default {
     },
   },
   watch: {
-    checkAppTheme() {
-      this.editAppTheme();
+    getAppTheme() {
+      this.checkTheme();
     },
   },
   methods: {
-    editAppTheme() {
-      if (this.theme === "black") {
-        this.settingBackground = "rgba(0, 0, 0, 0.5098039216)";
-      } else if (this.theme === "white") {
-        this.settingBackground = "rgb(219 219 219 / 51%)";
-      }
-    },
+    ...mapMutations(["updateBlackWhiteTheme"]),
     updateTheme(val) {
       this.upTheme = val;
     },
@@ -124,12 +119,19 @@ export default {
         this.settingHeight = "40vh";
         this.activeSettings = false;
         this.resizeActive = true;
-        this.editAppTheme();
+      }
+    },
+    checkTheme() {
+      this.theme = this.getAppTheme;
+      if (this.theme == "black") {
+        this.$refs.settingBlock.style.backgroundColor = "#1f1d1d";
+      } else if (this.theme == "white") {
+        this.$refs.settingBlock.style.backgroundColor = "#bababa";
       }
     },
   },
   mounted() {
-    this.editAppTheme();
+    this.checkTheme();
   },
 };
 </script>

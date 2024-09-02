@@ -26,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getWallpapers"]),
+    ...mapGetters(["getWallpapers", "getBackgroundColor"]),
     checkWallpapers() {
       return this.getWallpapers;
     },
@@ -49,6 +49,17 @@ export default {
         }
       });
     },
+    checkColorTheme() {
+      const imageItems = document.querySelectorAll(".select__wallpaper");
+      for (let block of imageItems) {
+        block.style.background = this.getBackgroundColor;
+      }
+    },
+  },
+  watch: {
+    getBackgroundColor() {
+      this.checkColorTheme();
+    },
   },
   mounted() {
     if (!Number(localStorage.getItem("activeWallpaperID"))) {
@@ -61,6 +72,7 @@ export default {
       localStorage.setItem("activeWallpaperCounter", 400);
     }
     this.scrollToActiveWallpaper();
+    this.checkColorTheme();
   },
 };
 </script>
@@ -82,8 +94,7 @@ export default {
     border-radius: 10px;
     animation: showWallpaperBlocks 0.6s ease;
     transition: all 0.2s;
-
-    opacity: 0.8;
+    cursor: pointer;
 
     @keyframes showWallpaperBlocks {
       0% {
@@ -111,10 +122,9 @@ export default {
 
 .selected__wallpaper {
   transition: all 0.2s;
-  background: rgb(255 255 255);
+  background: rgb(255 255 255) !important;
   color: black;
   scale: 1.05;
   filter: blur(0px);
-  opacity: 1;
 }
 </style>

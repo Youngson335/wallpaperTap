@@ -1,5 +1,5 @@
 <template>
-  <nav class="menu">
+  <nav class="menu" ref="menu">
     <router-link to="/">
       <div class="menu__item" style="opacity: 0">
         <img src="../assets/icons/Home.svg" alt="" draggable="false" />
@@ -32,7 +32,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAppTheme"]),
+    ...mapGetters(["getAppTheme", "getBackgroundColor"]),
     appTheme() {
       this.theme = this.getAppTheme;
       return this.getAppTheme;
@@ -42,8 +42,14 @@ export default {
     appTheme(val, newVal) {
       this.editAppTheme();
     },
+    getBackgroundColor() {
+      this.addStyleMenu();
+    },
   },
   methods: {
+    addStyleMenu() {
+      this.$refs.menu.style.background = this.getBackgroundColor;
+    },
     getMenuItemsByClassName() {
       const items = document.querySelectorAll(".menu__item");
       for (let index = 0; index < items.length; index++) {
@@ -88,6 +94,7 @@ export default {
   mounted() {
     this.getMenuItemsByClassName();
     // this.editAppTheme();
+    this.addStyleMenu();
   },
 };
 </script>
@@ -101,13 +108,12 @@ export default {
   right: 0;
   left: 0;
   padding: 0 30px;
-  background: #98a364;
   height: 10%;
   max-height: 70px;
   border-radius: 18px;
   margin-bottom: 5px;
   animation: showMenu 0.8s ease;
-  transition: animation 0.5s;
+  transition: all 0.5s;
   width: calc(100% - 80px);
   max-width: 320px;
   margin: 0 auto;

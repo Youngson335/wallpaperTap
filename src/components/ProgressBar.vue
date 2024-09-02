@@ -1,12 +1,17 @@
 <template>
   <div class="progress-bar">
-    <div class="progress" :style="{ width: progressWidth + '%' }"></div>
+    <div
+      ref="progress"
+      class="progress"
+      :style="{ width: progressWidth + '%' }"
+    ></div>
   </div>
   <ModalSuccess class="done__modal" />
 </template>
 
 <script>
 import ModalSuccess from "../components/ModalSuccess.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     ModalSuccess,
@@ -24,6 +29,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["getBackgroundColor"]),
     progressWidth() {
       return (this.clickCount / this.maxClicks) * 100;
     },
@@ -34,6 +40,9 @@ export default {
   watch: {
     clickCount() {
       this.updateProgress();
+    },
+    getBackgroundColor() {
+      this.updateColorTheme();
     },
   },
   methods: {
@@ -77,8 +86,12 @@ export default {
 
       progress.animate(keyframes, timing);
     },
+    updateColorTheme() {
+      this.$refs.progress.style.background = this.getBackgroundColor;
+    },
   },
   mounted() {
+    this.updateColorTheme();
     this.initialWidth = this.progressWidth;
     this.$nextTick(() => {
       this.animateBar();

@@ -19,7 +19,7 @@ export default {
 <style lang="scss" scoped>
 .wallpaper {
   &__title {
-    padding-top: 40px;
+    padding-top: 60px;
   }
   &__page {
   }
